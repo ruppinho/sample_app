@@ -1,6 +1,7 @@
 require 'spec_helper'
 
 describe "Static pages" do
+  let(:expected_title) { "Ruby on Rails Tutorial Sample App | #{static_page.camelize}" }
 
   describe "Home page" do
     let(:static_page) { 'home' }
@@ -15,7 +16,7 @@ describe "Static pages" do
     end
 
     it "has the right title" do
-      expect(page).to have_title("Ruby on Rails Tutorial Sample App | Home")
+      expect(page).to have_title(expected_title)
     end
   end
 
@@ -30,7 +31,7 @@ describe "Static pages" do
     end
 
     it "has the right title" do
-      expect(page).to have_title("Ruby on Rails Tutorial Sample App | Help")
+      expect(page).to have_title(expected_title)
     end
   end
 
@@ -46,7 +47,7 @@ describe "Static pages" do
     end
 
     it "has the right title" do
-      expect(page).to have_title("Ruby on Rails Tutorial Sample App | About Us")
+      expect(page).to have_title(expected_title)
     end
   end
 
@@ -62,7 +63,7 @@ describe "Static pages" do
     end
 
     it "has the right title" do
-      expect(page).to have_title("Ruby on Rails Tutorial Sample App | Contact")
+      expect(page).to have_title(expected_title)
     end
   end
 end
