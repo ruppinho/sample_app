@@ -4,14 +4,13 @@ describe "Static pages" do
   let(:base_title) { "Ruby on Rails Tutorial Sample App" }
 
   describe 'Home page' do
-    let(:static_page) { 'home' }
+    let(:page_title) { 'Home' }
 
     before :each do
-      visit "/static_pages/#{static_page}"
+      visit root_path
     end
 
     it "has the content 'Sample App'" do
-      visit '/static_pages/home'
       expect(page).to have_content('Sample App')
     end
 
@@ -20,19 +19,19 @@ describe "Static pages" do
     end
 
     it 'does not have a custom page title' do
-      expect(page).to_not have_title(" | #{static_page.camelize}")
+      expect(page).to_not have_title(" | #{page_title}")
     end
   end
 
   describe 'Help page' do
-    let(:static_page) { 'help' }
+    let(:page_title) { 'Help' }
 
     before :each do
-      visit "/static_pages/#{static_page}"
+      visit help_path
     end
 
-    it "has the content 'Help'" do
-      expect(page).to have_content('Help')
+    it 'has the right content' do
+      expect(page).to have_content(page_title)
     end
 
     it 'has the base title' do
@@ -40,19 +39,19 @@ describe "Static pages" do
     end
 
     it 'has a custom page title' do
-      expect(page).to have_title(" | #{static_page.camelize}")
+      expect(page).to have_title(" | #{page_title}")
     end
   end
 
   describe 'About page' do
-    let(:static_page) { 'about' }
+    let(:page_title) { 'About Us' }
 
     before :each do
-      visit "/static_pages/#{static_page}"
+      visit about_path
     end
 
-    it "has the content 'About Us'" do
-      expect(page).to have_content('About Us')
+    it 'has the right content' do
+      expect(page).to have_content(page_title)
     end
 
     it 'has the base title' do
@@ -60,19 +59,19 @@ describe "Static pages" do
     end
 
     it 'has a custom page title' do
-      expect(page).to have_title(" | #{static_page.camelize}")
+      expect(page).to have_title(" | #{page_title}")
     end
   end
 
   describe 'Contact page' do
-    let(:static_page) { 'contact' }
+    let(:page_title) { 'Contact' }
 
     before :each do
-      visit "/static_pages/#{static_page}"
+      visit contact_path
     end
 
-    it "has the content 'Contact'" do
-      expect(page).to have_content('Contact')
+    it 'has the right content' do
+      expect(page).to have_content(page_title)
     end
 
     it 'has the base title' do
@@ -80,7 +79,7 @@ describe "Static pages" do
     end
 
     it 'has a custom page title' do
-      expect(page).to have_title(" | #{static_page.camelize}")
+      expect(page).to have_title(" | #{page_title}")
     end
   end
 end
