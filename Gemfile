@@ -13,7 +13,7 @@ group :development, :test do
   gem 'rspec-rails', '2.13.1'
   gem 'guard-rspec', '2.5.0'
   gem 'spork-rails', '4.0.0'
-
+  gem 'faker', '1.1.2'
 end
 
 group :test do
