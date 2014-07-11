@@ -1,0 +1,10 @@
+<div class="media">
+  <a class="pull-left" href="<%= user_path(user) %>">
+    <%= gravatar_for user, size: 32, class: 'img-circle media-object' %>
+  </a>
+
+  <div class="media-body">
+    <h4 class="media-heading"><%= user.name %></h4>
+    <%= user.email %>
+  </div>
+</div>
