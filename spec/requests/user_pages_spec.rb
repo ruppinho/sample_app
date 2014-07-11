@@ -2,8 +2,33 @@ require 'spec_helper'
 
 describe 'User pages' do
 
-  let(:base_title) { "Ruby on Rails Tutorial Sample App" }
+  let(:base_title) { 'Ruby on Rails Tutorial Sample App' }
   subject { page }
+
+  describe 'index' do
+    before do
+      sign_in FactoryGirl.create(:user)
+      FactoryGirl.create(:user, name: 'Bob', email: 'bob@example.com')
+      FactoryGirl.create(:user, name: 'Ben', email: 'ben@example.com')
+      visit users_path
+    end
+
+    it { should have_title('All users') }
+    it { should have_content('All users') }
+
+    it 'should list each user' do
+      User.all.each do |user|
+        expect(page).to have_selector('h4.media-heading', text: user.name)
+      end
+    end
+
+    it 'should display the users image' do
+      User.all.each do |user|
+        expect(page).to have_css("img[src*='#{(gravatar_url_for(user))}']")
+      end
+    end
+  end
+
 
   describe 'user page' do
     let(:user) { FactoryGirl.create(:user) }
@@ -44,7 +69,7 @@ describe 'User pages' do
         expect { click_button submit }.not_to change(User, :count)
       end
 
-      describe "after submission" do
+      describe 'after submission' do
         before { click_button submit }
 
         it { should have_title('Sign up') }
@@ -64,7 +89,7 @@ describe 'User pages' do
         expect { click_button submit }.to change(User, :count).by(1)
       end
 
-      describe "after saving the user" do
+      describe 'after saving the user' do
         before { click_button submit }
         let(:user) { User.find_by(email: 'user@example.com') }
 
@@ -94,15 +119,15 @@ describe 'User pages' do
       it { should have_content('error') }
     end
 
-    describe "with valid information" do
-      let(:new_name)  { "New Name" }
-      let(:new_email) { "new@example.com" }
+    describe 'with valid information' do
+      let(:new_name)  { 'New Name' }
+      let(:new_email) { 'new@example.com' }
       before do
-        fill_in "Name",             with: new_name
-        fill_in "Email",            with: new_email
-        fill_in "Password",         with: user.password
-        fill_in "Confirm Password", with: user.password
-        click_button "Save changes"
+        fill_in 'Name',             with: new_name
+        fill_in 'Email',            with: new_email
+        fill_in 'Password',         with: user.password
+        fill_in 'Confirm Password', with: user.password
+        click_button 'Save changes'
       end
 
       it { should have_title(new_name) }
