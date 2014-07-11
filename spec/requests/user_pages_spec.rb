@@ -16,6 +16,21 @@ describe 'User pages' do
     it { should have_title('All users') }
     it { should have_content('All users') }
 
+    describe "pagination" do
+
+      before(:all) { 30.times { FactoryGirl.create(:user) } }
+      after(:all)  { User.delete_all }
+
+      it { should have_selector('div.pagination') }
+
+      it "should list each user" do
+        User.paginate(page: 1, per_page: 10).each do |user|
+          expect(page).to have_selector('h4.media-heading', text: user.name)
+        end
+      end
+
+    end
+
     it 'should list each user' do
       User.all.each do |user|
         expect(page).to have_selector('h4.media-heading', text: user.name)
@@ -27,6 +42,7 @@ describe 'User pages' do
         expect(page).to have_css("img[src*='#{(gravatar_url_for(user))}']")
       end
     end
+
   end
 
 
