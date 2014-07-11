@@ -172,3 +172,15 @@ input {
   margin-top: 45px;
   @include box_sizing;
 }
+
+.media {
+  background-color: $grayLighter;
+  padding: 10px;
+
+  @extend .img-rounded;
+}
+
+.img-circle {
+  background-color: $white;
+  padding: 5px;
+}

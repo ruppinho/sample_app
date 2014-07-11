@@ -6,7 +6,7 @@
   <% @users.each do |user| %>
       <div class="media">
         <a class="pull-left" href="<%= user_path(user) %>">
-          <%= gravatar_for user, size: 48, class: 'media-object' %>
+          <%= gravatar_for user, size: 48, class: 'img-circle media-object' %>
         </a>
 
         <div class="media-body">
