@@ -62,7 +62,6 @@ p {
   line-height: 1.7em;
 }
 
-
 /* header */
 
 #logo {
@@ -70,7 +69,7 @@ p {
   margin-right: 10px;
   font-size: 1.7em;
   color: white;
-  # text-transform: uppercase;
+# text-transform:uppercase;
   letter-spacing: -1px;
   padding-top: 9px;
   font-weight: bold;
@@ -183,4 +182,8 @@ input {
 .img-circle {
   background-color: $white;
   padding: 5px;
+}
+
+.vcenter {
+  vertical-align: middle;
 }

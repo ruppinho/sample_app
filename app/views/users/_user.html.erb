@@ -3,6 +3,10 @@
     <%= gravatar_for user, size: 32, class: 'img-circle media-object' %>
   </a>
 
+  <% if current_user.admin? && !current_user?(user) %>
+      <div class="pull-right vcenter"><%= link_to "delete", user, method: :delete, data: { confirm: "You sure?" } %></div>
+  <% end %>
+
   <div class="media-body">
     <h4 class="media-heading"><%= user.name %></h4>
     <%= user.email %>

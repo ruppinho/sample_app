@@ -1,7 +1,8 @@
 class UsersController < ApplicationController
   before_action :require_user,   except:  [:new, :create, :index]
-  before_action :signed_in_user, only: [:edit, :update, :index]
+  before_action :signed_in_user, only: [:edit, :update, :index, :destroy]
   before_action :correct_user,   only: [:edit, :update]
+  before_action :admin_user,     only: [:destroy]
 
   def new
     @user = User.new
@@ -37,6 +38,12 @@ class UsersController < ApplicationController
     end
   end
 
+  def destroy
+    @user.destroy
+    flash[:success] = "User deleted."
+    redirect_to users_url
+  end
+
   private
 
     def user_params
@@ -56,5 +63,9 @@ class UsersController < ApplicationController
 
     def correct_user
       redirect_to(root_url) unless current_user?(@user)
+    end
+
+    def admin_user
+      redirect_to(root_url) unless current_user.admin?
     end
 end
