@@ -1,10 +1,11 @@
+# Controller for Micropost actions
 class MicropostsController < ApplicationController
   before_action :require_signed_in_user!, only: [:create, :destroy]
 
   def create
     @micropost = current_user.microposts.build(micropost_params)
     if @micropost.save
-      flash[:success] = "Micropost created!"
+      flash[:success] = 'Micropost created!'
       redirect_to root_url
     else
       @feed_items = []
@@ -20,5 +21,4 @@ class MicropostsController < ApplicationController
   def micropost_params
     params.require(:micropost).permit(:content)
   end
-
 end

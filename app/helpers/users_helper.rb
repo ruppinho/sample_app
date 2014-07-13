@@ -1,5 +1,5 @@
+# Helper methods for dealing with users in views
 module UsersHelper
-
   # Returns the Gravatar (http://gravatar.com/) for the given user.
   def gravatar_for(user, options = {})
     size = options.fetch(:size, 50)
@@ -9,7 +9,7 @@ module UsersHelper
 
   def gravatar_url_for(user, options = {})
     size = options.fetch(:size, nil)
-    gravatar_id = Digest::MD5::hexdigest(user.email.downcase)
+    gravatar_id = Digest::MD5.hexdigest(user.email.downcase)
     gravatar_url = "https://secure.gravatar.com/avatar/#{gravatar_id}"
     gravatar_url << "?s=#{size}" if size
     gravatar_url

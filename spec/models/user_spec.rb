@@ -16,7 +16,7 @@ describe User do
 
   it { should be_valid }
 
-  describe "with admin attribute set to 'true'" do
+  describe 'with admin attribute set to true' do
     before do
       user.save!
       user.toggle!(:admin)
@@ -42,8 +42,8 @@ describe User do
 
   describe 'when email format is invalid' do
     it 'should be invalid' do
-      addresses = %w[user@foo,com user_at_foo.org example.user@foo.
-                     foo@bar_baz.com foo@bar+baz.com foo@bar..com]
+      addresses = %w(user@foo,com user_at_foo.org example.user@foo.
+                     foo@bar_baz.com foo@bar+baz.com foo@bar..com)
       addresses.each do |invalid_address|
         user.email = invalid_address
         expect(user).not_to be_valid
@@ -53,7 +53,7 @@ describe User do
 
   describe 'when email format is valid' do
     it 'should be valid' do
-      addresses = %w[user@foo.COM A_US-ER@f.b.org frst.lst@foo.jp a+b@baz.cn]
+      addresses = %w(user@foo.COM A_US-ER@f.b.org frst.lst@foo.jp a+b@baz.cn)
       addresses.each do |valid_address|
         user.email = valid_address
         expect(user).to be_valid
@@ -80,7 +80,7 @@ describe User do
       expect(user.reload.email).to eq mixed_case_email.downcase
     end
   end
-  
+
   describe 'when password is not present' do
     let(:user) { FactoryGirl.build(:user, :with_empty_password) }
     it { should_not be_valid }
@@ -112,12 +112,12 @@ describe User do
     end
   end
 
-  describe "remember token" do
+  describe 'remember token' do
     before { user.save }
     its(:remember_token) { should_not be_blank }
   end
 
-  describe "micropost associations" do
+  describe 'micropost associations' do
     before { user.save }
 
     let!(:older_micropost) do
@@ -128,11 +128,11 @@ describe User do
       FactoryGirl.create(:micropost, user: user, created_at: 1.hour.ago)
     end
 
-    it "should have the right microposts in the right order" do
+    it 'should have the right microposts in the right order' do
       expect(user.microposts.to_a).to eq [newer_micropost, older_micropost]
     end
 
-    it "should destroy associated microposts" do
+    it 'should destroy associated microposts' do
       microposts = user.microposts.to_a
       user.destroy
       expect(microposts).not_to be_empty
@@ -140,17 +140,5 @@ describe User do
         expect(Micropost.where(id: micropost.id)).to be_empty
       end
     end
-
-    describe "status" do
-      let(:unfollowed_post) do
-        FactoryGirl.create(:micropost, user: FactoryGirl.create(:user))
-      end
-
-      its(:feed) { should include(newer_micropost) }
-      its(:feed) { should include(older_micropost) }
-      its(:feed) { should_not include(unfollowed_post) }
-    end
-
   end
-
 end

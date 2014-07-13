@@ -26,11 +26,11 @@ describe 'Static pages' do
       expect(page).to_not have_title(' | Home')
     end
 
-    describe "for signed-in users" do
+    describe 'for signed-in users' do
       let(:user) { FactoryGirl.create(:user) }
       before do
-        FactoryGirl.create(:micropost, user: user, content: "Lorem ipsum")
-        FactoryGirl.create(:micropost, user: user, content: "Dolor sit amet")
+        FactoryGirl.create(:micropost, user: user, content: 'Lorem ipsum')
+        FactoryGirl.create(:micropost, user: user, content: 'Dolor sit amet')
         sign_in user
         visit root_path
       end

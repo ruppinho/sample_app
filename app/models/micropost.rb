@@ -1,5 +1,5 @@
+# Class for micropost model
 class Micropost < ActiveRecord::Base
-
   #
   # Relations
   #
@@ -8,14 +8,15 @@ class Micropost < ActiveRecord::Base
   #
   # Validators
   #
-  validates_presence_of :user_id
+  validates :user_id,
+            presence: true
 
-  validates_presence_of :content
-  validates_length_of :content, maximum: 140
+  validates :content,
+            presence: true,
+            length: { maximum: 140 }
 
   #
   # Scopes
   #
-  default_scope -> { order('created_at DESC') }
-
+  default_scope { order('created_at DESC') }
 end

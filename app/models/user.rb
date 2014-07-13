@@ -1,5 +1,5 @@
+# User model class
 class User < ActiveRecord::Base
-
   #
   # Fields
   #
@@ -13,27 +13,31 @@ class User < ActiveRecord::Base
   #
   # Validators
   #
-  validates_presence_of :name
-  validates_length_of :name, maximum: 50
+  validates :name,
+            presence: true,
+            length: { maximum: 50 }
 
-  validates_presence_of :email
-  validates_format_of :email, with: /\A[\w+\-.]+@[a-z\d\-]+(?:\.[a-z\d\-]+)*\.[a-z]+\z/i
-  validates_uniqueness_of :email, case_sensitive: false
+  validates :email,
+            presence: true,
+            uniqueness: { case_sensitive: false },
+            format: { with: /\A[\w+\-.]+@[a-z\d\-]+(?:\.[a-z\d\-]+)*\.[a-z]+\z/i }
 
-  validates_length_of :password, minimum: 6
+  validates :password,
+            presence: true,
+            length:   { minimum: 6 }
 
   #
   # Callbacks
   #
-  before_save { self.email.downcase! }
+  before_save { email.downcase! }
   before_create :create_remember_token
 
   #
   # Methods
   #
   def feed
-    # This is preliminary. See "Following users" for the full implementation.
-    Micropost.where("user_id = ?", id)
+    # This is preliminary. See 'Following users' for the full implementation.
+    Micropost.where('user_id = ?', id)
   end
 
   class << self
@@ -51,5 +55,4 @@ class User < ActiveRecord::Base
   def create_remember_token
     self.remember_token = User.digest(User.new_remember_token)
   end
-
 end

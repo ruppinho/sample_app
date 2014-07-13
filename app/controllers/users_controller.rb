@@ -1,8 +1,9 @@
+# Controller for user actions
 class UsersController < ApplicationController
-  before_action :require_user!,           except: [:new, :create, :index]
+  before_action :require_user!, except: [:new, :create, :index]
   before_action :require_signed_in_user!, only: [:edit, :update, :index, :destroy]
-  before_action :require_correct_user!,   only: [:edit, :update]
-  before_action :require_admin_user!,     only: [:destroy]
+  before_action :require_correct_user!, only: [:edit, :update]
+  before_action :require_admin_user!, only: [:destroy]
 
   def new
     @user = User.new
@@ -20,7 +21,7 @@ class UsersController < ApplicationController
     @user = User.new(user_params)
     if @user.save
       sign_in @user
-      flash[:success] = "Welcome to the Sample App!"
+      flash[:success] = 'Welcome to the Sample App!'
       redirect_to @user
     else
       render 'new'
@@ -32,7 +33,7 @@ class UsersController < ApplicationController
 
   def update
     if @user.update_attributes(user_params)
-      flash[:success] = "Profile updated"
+      flash[:success] = 'Profile updated'
       redirect_to @user
     else
       render 'edit'
@@ -41,7 +42,7 @@ class UsersController < ApplicationController
 
   def destroy
     @user.destroy
-    flash[:success] = "User deleted."
+    flash[:success] = 'User deleted.'
     redirect_to users_url
   end
 
@@ -50,6 +51,4 @@ class UsersController < ApplicationController
   def user_params
     params.require(:user).permit(:name, :email, :password, :password_confirmation)
   end
-
-
 end
