@@ -6,6 +6,11 @@ class User < ActiveRecord::Base
   has_secure_password
 
   #
+  # Relations
+  #
+  has_many :microposts, dependent: :destroy
+
+  #
   # Validators
   #
   validates_presence_of :name
