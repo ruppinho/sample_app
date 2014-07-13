@@ -40,4 +40,23 @@ module SessionsHelper
     session[:return_to] = request.url if request.get?
   end
 
+  def require_user!
+    @user ||= User.find(params[:id])
+  end
+
+  def require_signed_in_user!
+    unless signed_in?
+      store_location
+      redirect_to signin_url, notice: 'Please sign in.'
+    end
+  end
+
+  def require_correct_user!
+    redirect_to(root_url) unless current_user?(@user)
+  end
+
+  def require_admin_user!
+    redirect_to(root_url) unless current_user.admin?
+  end
+
 end
