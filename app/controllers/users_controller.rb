@@ -1,7 +1,7 @@
 # Controller for user actions
 class UsersController < ApplicationController
   before_action :require_user!, except: [:new, :create, :index]
-  before_action :require_signed_in_user!, only: [:edit, :update, :index, :destroy]
+  before_action :require_signed_in_user!, only: [:edit, :update, :index, :destroy, :following, :followers]
   before_action :require_correct_user!, only: [:edit, :update]
   before_action :require_admin_user!, only: [:destroy]
 
@@ -44,6 +44,18 @@ class UsersController < ApplicationController
     @user.destroy
     flash[:success] = 'User deleted.'
     redirect_to users_url
+  end
+
+  def following
+    @title = 'Following'
+    @users = @user.followed_users.paginate(page: params[:page])
+    render 'show_follow'
+  end
+
+  def followers
+    @title = 'Followers'
+    @users = @user.followers.paginate(page: params[:page])
+    render 'show_follow'
   end
 
   private
